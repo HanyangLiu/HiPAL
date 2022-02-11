@@ -1,0 +1,14 @@
+tensorflow==2.5.0
+keras==2.4.3
+neptune-client
+neptune-contrib
+argparse
+matplotlib
+pydot
+pydotplus
+graphviz
+gensim==3.8.3
+sklearn
+tqdm
+joblib
+
