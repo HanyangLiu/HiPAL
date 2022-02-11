@@ -5,7 +5,7 @@ Code for KDD'22 Applied Data Science Track submission -- HiPAL: A Deep Framework
 
 ## To Run
 
-'''
+```
 bash bash/run_hitcn_cv.sh
-'''
+```
 
