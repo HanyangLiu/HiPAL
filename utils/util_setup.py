@@ -63,8 +63,7 @@ def data_loader_inner(train_uids, val_uids):
     # shift as unit get IDs for training and testing set
     IDs_train = logs_all[logs_all['USER_ID'].isin(train_uids)]['sample_shift_ID'].unique().tolist()
     IDs_test = logs_all[logs_all['USER_ID'].isin(val_uids)]['sample_shift_ID'].unique().tolist()
-    # IDs_train, IDs_val = train_test_split(IDs_train, test_size=1/8, random_state=123)
-    IDs_val = logs_all[logs_all['USER_ID'].isin(val_uids)]['sample_shift_ID'].unique().tolist()
+    IDs_train, IDs_val = train_test_split(IDs_train, test_size=1/8, random_state=123)
 
     return logs_all, survey, (IDs_train, IDs_val, IDs_test)
 
@@ -94,8 +93,7 @@ def data_loader_outer(train_uids, val_uids):
     # get sample_ID for training and testing set
     IDs_train = df_survey[df_survey['USER_ID'].isin(train_uids)]['sample_ID'].values.tolist()
     IDs_test = df_survey[df_survey['USER_ID'].isin(val_uids)]['sample_ID'].values.tolist()
-    # IDs_train, IDs_val = train_test_split(IDs_train, test_size=1/8, random_state=123)
-    IDs_val = df_survey[df_survey['USER_ID'].isin(val_uids)]['sample_ID'].values.tolist()
+    IDs_train, IDs_val = train_test_split(IDs_train, test_size=1/8, random_state=123)
 
     return logs_all, df_survey, (IDs_train, IDs_val, IDs_test)
 
@@ -124,8 +122,7 @@ def data_loader_semi(train_uids, val_uids):
     # get sample_ID for training and testing set
     IDs_test = df_survey[df_survey['USER_ID'].isin(val_uids)]['sample_ID'].values.tolist()
     IDs_train = logs_all['sample_ID'].unique().tolist()
-    # IDs_train, IDs_test = train_test_split(IDs_train, test_size=1/8, random_state=123)
-    IDs_val = df_survey[df_survey['USER_ID'].isin(val_uids)]['sample_ID'].values.tolist()
+    IDs_train, IDs_test = train_test_split(IDs_train, test_size=1/8, random_state=123)
 
     return logs_all, df_survey, (IDs_train, IDs_val, IDs_test)
 
