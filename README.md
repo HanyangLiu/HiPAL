@@ -29,4 +29,5 @@ bash bash/run_higru_cv.sh
 ## Interpretable Burnout Prediction
 
 
-<img width="1500" alt="image" src="https://user-images.githubusercontent.com/12636809/153684311-ef638a6c-98a1-421a-9222-a7f6d36ee5ec.png">
+![image](https://user-images.githubusercontent.com/12636809/161801784-106aa06f-4f57-4ac9-b044-c6f817f975a0.png)
+
