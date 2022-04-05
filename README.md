@@ -28,7 +28,8 @@ bash bash/run_higru_cv.sh
 
 ## Interpretable Burnout Prediction
 
-![burnout](https://user-images.githubusercontent.com/12636809/161801929-78a13ec8-120b-417d-bf19-70b0f8e85b57.png)
+[burnout.pdf](https://github.com/HanyangLiu/HiPAL/files/8420133/burnout.pdf)
+
 
 
 
