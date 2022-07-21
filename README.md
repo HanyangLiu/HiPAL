@@ -32,6 +32,20 @@ bash bash/run_higru_cv.sh
 <img width="1394" alt="image" src="https://user-images.githubusercontent.com/12636809/161803105-4b09591c-6cde-4428-b38e-553c95997e9b.png">
 
 
+## Citation
+
+Please consider citing our work if you find this repository useful!
+
+```
+@article{liu2022hipal,
+  title={HiPAL: A Deep Framework for Physician Burnout Prediction Using Activity Logs in Electronic Health Records},
+  author={Liu, Hanyang and Lou, Sunny S and Warner, Benjamin C and Harford, Derek R and Kannampallil, Thomas and Lu, Chenyang},
+  journal={ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)},
+  year={2022}
+}
+```
+
+
 
 
 
