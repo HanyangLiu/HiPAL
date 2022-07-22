@@ -15,11 +15,6 @@ def evaluate(best_model, test_generator, args):
         metrics=['accuracy', tf.keras.metrics.AUC(curve='ROC'), tf.keras.metrics.AUC(curve='PR')]
     )
     loss, acc, auroc, auprc = predictor.evaluate(test_generator, verbose=1)
-    print('--------------------------------------------')
-    print('Evaluation of full test set (by model.evalulate()):')
-    print("AU-ROC:", "%0.4f" % auroc,
-          "AU-PRC:", "%0.4f" % auprc,
-          "Accuracy:", "%0.4f" % acc)
 
     # Get testing scores
     print('Testing model...')
@@ -38,20 +33,20 @@ def evaluate(best_model, test_generator, args):
     f1 = metrics.f1_score(y_test, y_prob > 0.5)
     print('--------------------------------------------')
     print('Evaluation of full test set:')
-    print("AU-ROC:", "%0.4f" % metrics.auc(fpr, tpr),
-          "AU-PRC:", "%0.4f" % metrics.auc(rec, prec),
+    print("AU-ROC:", "%0.4f" % auroc,
+          "AU-PRC:", "%0.4f" % auprc,
           "Accuracy:", "%0.4f" % acc,
           "F1:", "%0.4f" % f1,)
 
     if args.if_neptune:
-        neptune.log_metric('AU-ROC', metrics.auc(fpr, tpr))
-        neptune.log_metric('AU-PRC', metrics.auc(rec, prec))
+        neptune.log_metric('AU-ROC', auroc)
+        neptune.log_metric('AU-PRC', auprc)
         neptune.log_metric('Accuracy', acc)
         neptune.log_metric('F1', f1)
         # plot ROC and PRC
         fig1 = plt.figure()
         plt.title('Receiver Operating Characteristic')
-        plt.plot(fpr, tpr, label='AUC = %0.4f' % metrics.auc(fpr, tpr))
+        plt.plot(fpr, tpr, label='AUC = %0.4f' % auroc)
         plt.legend(loc='lower right')
         plt.plot([0, 1], [0, 1], 'r--')
         plt.xlim([-0.05, 1.05])
@@ -62,7 +57,7 @@ def evaluate(best_model, test_generator, args):
 
         fig2 = plt.figure()
         plt.title('Precision Recall Curve')
-        plt.plot(rec, prec, label='AUC = %0.4f' % metrics.auc(rec, prec))
+        plt.plot(rec, prec, label='AUC = %0.4f' % auprc)
         plt.legend(loc='lower right')
         plt.xlim([-0.05, 1.05])
         plt.ylim([-0.05, 1.05])
@@ -70,7 +65,7 @@ def evaluate(best_model, test_generator, args):
         plt.xlabel('Recall')
         utils.send_figure(fig2, channel_name='figures')
 
-    return metrics.auc(fpr, tpr), metrics.auc(rec, prec), acc, f1
+    return auroc, auprc, acc, f1
 
 
 def evaluateVariantHorizon(best_model, args, df_survey, IDs_test, embedding_matrix, horizon=0):
@@ -89,12 +84,7 @@ def evaluateVariantHorizon(best_model, args, df_survey, IDs_test, embedding_matr
                                                  if_deepsup=False,
                                                  horizon=horizon,
                                                  if_rand_horizon=False)
-    # loss, acc, auroc, auprc = predictor.evaluate(test_generator, verbose=1)
-    # print('--------------------------------------------')
-    # print('Evaluation of full test set (by model.evalulate()):')
-    # print("AU-ROC:", "%0.4f" % auroc,
-    #       "AU-PRC:", "%0.4f" % auprc,
-    #       "Accuracy:", "%0.4f" % acc)
+    loss, acc, auroc, auprc = predictor.evaluate(test_generator, verbose=1)
 
     # Get testing scores
     print('Testing model...')
@@ -110,14 +100,17 @@ def evaluateVariantHorizon(best_model, args, df_survey, IDs_test, embedding_matr
     fpr, tpr, _ = metrics.roc_curve(y_test, y_prob)
     prec, rec, _ = metrics.precision_recall_curve(y_test, y_prob)
     acc = metrics.accuracy_score(y_test, y_prob > 0.5)
+    f1 = metrics.f1_score(y_test, y_prob > 0.5)
     print('--------------------------------------------')
     print('Evaluation of full test set:')
-    print("AU-ROC:", "%0.4f" % metrics.auc(fpr, tpr),
-          "AU-PRC:", "%0.4f" % metrics.auc(rec, prec),
-          "Accuracy:", "%0.4f" % acc)
+    print("AU-ROC:", "%0.4f" % auroc,
+          "AU-PRC:", "%0.4f" % auprc,
+          "Accuracy:", "%0.4f" % acc,
+          "F1:", "%0.4f" % f1,)
 
     if args.if_neptune:
-        neptune.log_metric('AU-ROC', metrics.auc(fpr, tpr))
-        neptune.log_metric('AU-PRC', metrics.auc(rec, prec))
+        neptune.log_metric('AU-ROC', auroc)
+        neptune.log_metric('AU-PRC', auprc)
         neptune.log_metric('Accuracy', acc)
+        neptune.log_metric('F1', f1)
 
