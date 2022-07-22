@@ -29,7 +29,6 @@ def evaluate(best_model, test_generator, args):
     # evaluation
     fpr, tpr, _ = metrics.roc_curve(y_test, y_prob)
     prec, rec, _ = metrics.precision_recall_curve(y_test, y_prob)
-    acc = metrics.accuracy_score(y_test, y_prob > 0.5)
     f1 = metrics.f1_score(y_test, y_prob > 0.5)
     print('--------------------------------------------')
     print('Evaluation of full test set:')
@@ -97,9 +96,6 @@ def evaluateVariantHorizon(best_model, args, df_survey, IDs_test, embedding_matr
     # print(y_prob)
 
     # evaluation
-    fpr, tpr, _ = metrics.roc_curve(y_test, y_prob)
-    prec, rec, _ = metrics.precision_recall_curve(y_test, y_prob)
-    acc = metrics.accuracy_score(y_test, y_prob > 0.5)
     f1 = metrics.f1_score(y_test, y_prob > 0.5)
     print('--------------------------------------------')
     print('Evaluation of full test set:')
